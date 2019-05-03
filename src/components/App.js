@@ -4,6 +4,8 @@ import { get } from '../_utils';
 
 export class App {
   constructor() {
+    this.handleDelete = this.handleDelete.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.loadCards();
     new Form(this.handleSubmit);
   }
@@ -11,7 +13,7 @@ export class App {
   loadCards() {
     fetch('/cards')
       .then(res => res.json())
-      .then(data => new CardList(data, this.handleDelete.bind(this)))
+      .then(data => new CardList(data, this.handleDelete))
       .catch(err => console.log(err));
   }
 
@@ -34,7 +36,7 @@ export class App {
       .then(data => {
         const cardContainer = get('.card-container');
         cardContainer.innerHTML = '';
-        new CardList(data);
+        new CardList(data, this.handleDelete);
       })
       .catch(err => console.log(err));
     form.reset();
@@ -51,7 +53,7 @@ export class App {
       .then(data => {
         const cardContainer = get('.card-container');
         cardContainer.innerHTML = '';
-        new CardList(data);
+        new CardList(data, this.handleDelete);
       })
       .catch(err => console.log(err));
   }
