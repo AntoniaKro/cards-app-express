@@ -6,7 +6,7 @@ export function createElement({
   const el = document.createElement(type);
   el.className = className;
   el.innerHTML = innerHTML;
-  document.body.appendChild(el);
+  document.body.insertAdjacentElement('beforeend', el);
   return el;
 }
 

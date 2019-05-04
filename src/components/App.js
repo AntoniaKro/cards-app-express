@@ -43,7 +43,6 @@ export class App {
   }
 
   handleDelete(event) {
-    console.log(event);
     const id = event.target.previousSibling.innerHTML;
     fetch('/cards' + `/${id}`, {
       method: 'DELETE',
