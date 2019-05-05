@@ -20,6 +20,7 @@ body {
   line-height: 1.6;
   margin: 0;
   padding: 0;
+  position: relative;
 }
 
 header {
@@ -37,6 +38,21 @@ header {
   grid-row: 2;
   padding: 15px;
   overflow: scroll;
+}
+
+.formEdit {
+  grid-row: 2;
+  position: absolute;
+  top: 20px;
+  width: 80%;
+  padding: 15px;
+  display: grid;
+  background: #fafcfe;
+  opacity: 7;
+  margin: 20px;
+  height: 50%;
+  border: 4px solid #f6ddc9;
+  border-radius: 20px;
 }
 
 .card {
@@ -69,7 +85,7 @@ header {
   }
 }
 
-.form {
+.formSubmit {
   grid-row: 3;
   padding: 15px;
   display: grid;
@@ -82,12 +98,16 @@ header {
   padding: 5px;
 }
 
-input {
+input,
+select {
   margin: 0 0 10px 0;
+  background: #fafcfe;
 }
 
 button {
   background: #6fb1e7;
   font-size: 20px;
   margin-top: 5px;
+  color: white;
+  font-weight: bold;
 }

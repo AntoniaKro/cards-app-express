@@ -36,6 +36,8 @@ app.post('/cards', function(req, res) {
   res.json(cards);
 });
 
+app.patch('/cards/:id', function(req, res))
+
 function writeFile() {
   fs.writeFile(__dirname + '/cards.json', JSON.stringify(cards), function(err) {
     if (err) {

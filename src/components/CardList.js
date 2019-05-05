@@ -2,12 +2,15 @@ import { getAll } from '../_utils';
 import { Card } from './Card';
 
 export class CardList {
-  constructor(cards, onClick) {
+  constructor(cards, onDelete, onEdit) {
     this.cards = cards;
     this.renderCards();
-    this.onClick = onClick;
+    this.onDelete = onDelete;
+    this.onEdit = onEdit;
     this.btn = getAll('.delete');
-    this.btn.forEach(btn => btn.addEventListener('click', this.onClick));
+    this.btn.forEach(btn => btn.addEventListener('click', this.onDelete));
+    this.edit = getAll('.edit');
+    this.edit.forEach(edit => edit.addEventListener('click', this.onEdit));
   }
 
   renderCards() {
