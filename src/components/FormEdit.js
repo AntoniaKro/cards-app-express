@@ -7,7 +7,7 @@ export class FormEdit {
       className: 'formEdit',
       innerHTML: `<input type='text' placeholder='Title' id='title' class='formElement'></input>
                         <select id='category' class='formElement'>
-                          <option value="">Choose category</option>
+                          <option value="No Category">No category</option>
                           <option value="Shopping">Shopping</option>
                           <option value="Social">Social</option>
                           <option value="Bootcamp">Bootcamp</option>
