@@ -9,7 +9,7 @@ export class FormEdit {
                         <select id='category' class='formElement'>
                           <option value="">Choose category</option>
                           <option value="Shopping">Shopping</option>
-                          <option value="SocialLife">Social Life</option>
+                          <option value="Social">Social</option>
                           <option value="Bootcamp">Bootcamp</option>
                           <option value="Cooking">Cooking</option>
                           <option value="Miscellanous">Miscellanous</option>
