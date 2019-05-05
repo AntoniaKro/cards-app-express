@@ -37,7 +37,8 @@ app.post('/cards', function(req, res) {
 });
 
 app.patch('/cards/:id', function(req, res) {
-  const id = req.param.id;
+  const id = req.params.id;
+  console.log(id);
   const editedCard = { ...req.body };
   const card = cards.find(card => card.id === id);
   const index = cards.indexOf(card);
