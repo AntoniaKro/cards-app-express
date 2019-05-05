@@ -9,7 +9,7 @@ export class CardList {
     this.onEdit = onEdit;
     this.btn = getAll('.delete');
     this.btn.forEach(btn => btn.addEventListener('click', this.onDelete));
-    this.edit = getAll('.edit');
+    this.edit = getAll('.fa-edit');
     this.edit.forEach(edit => edit.addEventListener('click', this.onEdit));
   }
 

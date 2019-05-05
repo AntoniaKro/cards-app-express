@@ -1,5 +1,6 @@
 import { CardList } from './CardList';
-import { Form } from './Form';
+import { FormSubmit } from './FormSubmit';
+import { FormEdit } from './FormEdit';
 import { get } from '../_utils';
 
 export class App {
@@ -7,8 +8,9 @@ export class App {
     this.handleDelete = this.handleDelete.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
+    this.saveEdit = this.saveEdit.bind(this);
     this.loadCards();
-    new Form(this.handleSubmit, 'formSubmit');
+    new FormSubmit(this.handleSubmit);
   }
 
   loadCards() {
@@ -20,7 +22,7 @@ export class App {
 
   handleSubmit() {
     event.preventDefault();
-    const form = get('formSubmit');
+    const form = get('.formSubmit');
     const title = get('#title');
     const cat = get('#category');
     const desc = get('#description');
@@ -59,32 +61,36 @@ export class App {
   }
 
   handleEdit() {
-    const id = event.target.previousSibling.previousSibling.innerHTML;
-    fetch('/cards' + `/${id}`)
+    event.preventDefault();
+    this.id = event.target.previousSibling.previousSibling.innerHTML;
+    console.log(this.id);
+    fetch('/cards' + `/${this.id}`)
       .then(res => res.json())
       .then(data => {
-        const editForm = new Form(this.saveEdit, 'formEdit');
+        const editForm = new FormEdit(this.saveEdit);
         const editFormChildList = editForm.el.childNodes;
-        editFormChildList[2].value = data.category;
-        editFormChildList[1].value = data.title;
-        editFormChildList[3].value = data.description;
+        const title = editFormChildList[0];
+        const cat = get(`[value=${data.category}]`);
+        const desc = editFormChildList[4];
+        cat.selected = true;
+        title.setAttribute('value', data.title);
+        desc.innerHTML = data.description;
       })
       .catch(err => console.log(err));
   }
 
-  saveEdit() {
+  saveEdit(event) {
     event.preventDefault();
-    const form = get('formEdit');
-    const title = get('#title');
-    const cat = get('#category');
-    const desc = get('#description');
-    fetch('/cards', {
+    const editForm = get('.formEdit');
+    const editFormChildList = editForm.childNodes;
+    fetch('/cards' + `/${this.id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        title: title.value,
-        category: cat.value,
-        description: desc.value
+        title: editFormChildList[0].value,
+        category: editFormChildList[2].value,
+        description: editFormChildList[4].value,
+        id: this.id
       })
     })
       .then(res => res.json())
@@ -92,6 +98,7 @@ export class App {
         const cardContainer = get('.card-container');
         cardContainer.innerHTML = '';
         new CardList(data, this.handleDelete, this.handleEdit);
+        editForm.remove();
       })
       .catch(err => console.log(err));
   }

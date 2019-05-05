@@ -36,7 +36,22 @@ app.post('/cards', function(req, res) {
   res.json(cards);
 });
 
-app.patch('/cards/:id', function(req, res))
+app.patch('/cards/:id', function(req, res) {
+  const id = req.param.id;
+  const cardIndex = cards.find(card => card.id === id);
+  const index = cards.indexOf(cardIndex);
+  cards.find(card => {
+    if (card.id === id) {
+      card.title = req.body.title;
+      card.category = req.body.category;
+      card.description = req.body.description;
+    }
+  });
+  console.log(index);
+  cards = [...cards.slice(0, index), ...cards.slice(index + 1)];
+  writeFile(cards);
+  res.json(cards);
+});
 
 function writeFile() {
   fs.writeFile(__dirname + '/cards.json', JSON.stringify(cards), function(err) {

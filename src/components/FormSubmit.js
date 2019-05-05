@@ -1,10 +1,10 @@
 import { createElement, get } from '../_utils';
 
-export class Form {
-  constructor(onClick, type) {
+export class FormSubmit {
+  constructor(onClick) {
     this.el = createElement({
       type: 'form',
-      className: type,
+      className: 'formSubmit',
       innerHTML: `<input type='text' placeholder='Title' id='title' class='formElement'></input>
                         <select id='category' class='formElement'>
                           <option value="">Choose category</option>
