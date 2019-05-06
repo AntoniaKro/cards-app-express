@@ -63,16 +63,15 @@ export class App {
   handleEdit() {
     event.preventDefault();
     this.id = event.target.previousSibling.previousSibling.innerHTML;
-    console.log(this.id);
     fetch('/cards' + `/${this.id}`)
       .then(res => res.json())
       .then(data => {
         const editForm = new FormEdit(this.saveEdit);
         const editFormChildList = editForm.el.childNodes;
         const title = editFormChildList[0];
-        const cat = get(`[value=${data.category}]`);
+        //const cat = get(`[value=${data.category}]`);
         const desc = editFormChildList[4];
-        cat.selected = true;
+        //cat.selected = true;
         title.setAttribute('value', data.title);
         desc.innerHTML = data.description;
       })
