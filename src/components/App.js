@@ -2,7 +2,6 @@ import { CardList } from './CardList';
 import { FormSubmit } from './FormSubmit';
 import { FormEdit } from './FormEdit';
 import { get } from '../_utils';
-import { Card } from './Card';
 
 export class App {
   cards = [];
@@ -11,6 +10,7 @@ export class App {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.saveEdit = this.saveEdit.bind(this);
+    this.updateCards = this.updateCards.bind(this);
     this.cardsList = new CardList(
       this.cards,
       this.handleDelete,
@@ -49,7 +49,7 @@ export class App {
     })
       .then(res => res.json())
       .then(data => {
-        new Card(data.title, data.category, data.description, data._id);
+        this.updateCards([...this.cards, data]);
       })
       .catch(err => console.log(err));
     form.reset();
@@ -63,13 +63,12 @@ export class App {
     })
       .then(res => res.json())
       .then(data => {
-        const test = get('.card-container');
-        console.log(test.childNodes);
-        /* const index = this.cardsList.indexOf(data);
-        this.cardsList = [
-          ...this.cardsList.slice(0, index),
-          ...this.cardsList.slice(index + 1)
-        ]; */
+        const card = this.cards.find(card => card._id === data._id);
+        const index = this.cards.indexOf(card);
+        this.updateCards([
+          ...this.cards.slice(0, index),
+          ...this.cards.slice(index + 1)
+        ]);
       })
       .catch(err => console.log(err));
   }
@@ -108,9 +107,10 @@ export class App {
     })
       .then(res => res.json())
       .then(data => {
-        const cardContainer = get('.card-container');
-        cardContainer.innerHTML = '';
-        new CardList(data, this.handleDelete, this.handleEdit);
+        const card = this.cards.find(card => card._id === data._id);
+        const index = this.cards.indexOf(card);
+        this.cards.splice(index, 1, data);
+        this.updateCards(this.cards);
         editForm.remove();
       })
       .catch(err => console.log(err));

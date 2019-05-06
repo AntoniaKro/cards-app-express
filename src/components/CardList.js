@@ -1,7 +1,8 @@
-import { getAll } from '../_utils';
+import { getAll, get } from '../_utils';
 import { Card } from './Card';
 
 export class CardList {
+  cardContainer = get('.card-container');
   constructor(cards, onDelete, onEdit) {
     this.renderCards(cards);
     this.onDelete = onDelete;
@@ -9,6 +10,7 @@ export class CardList {
   }
 
   renderCards(cards) {
+    this.cardContainer.innerHTML = '';
     cards.forEach(card => {
       new Card(card.title, card.category, card.description, card._id);
       this.btn = getAll('.delete');
