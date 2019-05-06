@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon server.js",
+    "server": "nodemon -w server.js server.js",
     "parcel": "parcel src/index.html",
     "start": "run-p server parcel"
   },
@@ -13,12 +13,15 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.4",
+    "mongoose": "^5.5.5",
     "nodemon": "^1.19.0",
     "npm-run-all": "^4.1.5",
     "parcel-bundler": "^1.12.3",
     "uid": "0.0.2"
   },
   "devDependencies": {
+    "@babel/core": "^7.4.4",
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
     "sass": "^1.20.1"
   }
 }

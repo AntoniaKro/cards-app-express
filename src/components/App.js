@@ -2,13 +2,20 @@ import { CardList } from './CardList';
 import { FormSubmit } from './FormSubmit';
 import { FormEdit } from './FormEdit';
 import { get } from '../_utils';
+import { Card } from './Card';
 
 export class App {
+  cards = [];
   constructor() {
     this.handleDelete = this.handleDelete.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.saveEdit = this.saveEdit.bind(this);
+    this.cardsList = new CardList(
+      this.cards,
+      this.handleDelete,
+      this.handleEdit
+    );
     this.loadCards();
     new FormSubmit(this.handleSubmit);
   }
@@ -16,8 +23,13 @@ export class App {
   loadCards() {
     fetch('/cards')
       .then(res => res.json())
-      .then(data => new CardList(data, this.handleDelete, this.handleEdit))
+      .then(data => this.updateCards(data))
       .catch(err => console.log(err));
+  }
+
+  updateCards(cards) {
+    this.cards = cards;
+    this.cardsList.renderCards(cards);
   }
 
   handleSubmit() {
@@ -37,9 +49,7 @@ export class App {
     })
       .then(res => res.json())
       .then(data => {
-        const cardContainer = get('.card-container');
-        cardContainer.innerHTML = '';
-        new CardList(data, this.handleDelete, this.handleEdit);
+        new Card(data.title, data.category, data.description, data._id);
       })
       .catch(err => console.log(err));
     form.reset();
@@ -53,9 +63,13 @@ export class App {
     })
       .then(res => res.json())
       .then(data => {
-        const cardContainer = get('.card-container');
-        cardContainer.innerHTML = '';
-        new CardList(data, this.handleDelete, this.handleEdit);
+        const test = get('.card-container');
+        console.log(test.childNodes);
+        /* const index = this.cardsList.indexOf(data);
+        this.cardsList = [
+          ...this.cardsList.slice(0, index),
+          ...this.cardsList.slice(index + 1)
+        ]; */
       })
       .catch(err => console.log(err));
   }
