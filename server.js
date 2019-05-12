@@ -39,7 +39,7 @@ app.post('/cards', function(req, res) {
 
 app.delete('/cards/:id', function(req, res) {
   const id = req.params.id;
-  Card.findByIdAndRemove(id)
+  Card.findByIdAndDelete(id)
     .then(card => res.json(card))
     .catch(err => res.json(err));
 });

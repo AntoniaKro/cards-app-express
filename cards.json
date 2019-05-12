@@ -1,1 +1,20 @@
-[{"title":"Buy groceries","category":"Shopping","description":"bananas, apples oat drink barista edition","id":"oc1ljqm"},{"title":"Organize dinner with friends","category":"Cooking","description":"create doodle, search for restaurant or maybe cook together. Everybody likes falafel!","id":"tj2tn0q"},{"title":"Make present for Verena","category":"Miscellanous","description":"Her birthday is soooon.","id":"hb8c6uk"}]
+[
+  {
+    "title": "Buy groceries",
+    "category": "Shopping",
+    "description": "bananas, apples oat drink barista edition",
+    "id": "oc1ljqm"
+  },
+  {
+    "title": "Organize dinner with friends",
+    "category": "Cooking",
+    "description": "create doodle, search for restaurant or maybe cook together. Everybody likes falafel!",
+    "id": "tj2tn0q"
+  },
+  {
+    "title": "Make present for Verena",
+    "category": "Miscellanous",
+    "description": "Her birthday is soooon.",
+    "id": "hb8c6uk"
+  }
+]
